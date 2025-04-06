@@ -138,6 +138,19 @@ export default function RootLayout({ children }) {
         </header>
         <main>{children}</main>
         <Toaster />
+        <footer className="flex flex-col px-4 py-8 gap-4 bg-primary">
+          <Image
+            src="/International-Lifestyle-Institute.svg"
+            alt="International Lifestyle Institute"
+            width={95}
+            height={40}
+            priority
+            className=""
+          />
+          <h3 className="text-white ml-3">
+            © {new Date().getFullYear()} Devhoo
+          </h3>
+        </footer>
       </body>
     </html>
   );
