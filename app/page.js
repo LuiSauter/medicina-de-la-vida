@@ -61,7 +61,7 @@ export default function Home() {
         "https://ilifestylei.us13.list-manage.com/subscribe/post?u=36b822a64921a59ff44bdd210&id=88b2fe7b65&f_id=0016ece7f0",
         {
           method: "POST",
-          mode: "no-cors", // Evita CORS pero no permite leer la respuesta
+          // mode: "no-cors", // Evita CORS pero no permite leer la respuesta
           body: formData,
         }
       );
