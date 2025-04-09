@@ -22,6 +22,8 @@ import { PhoneInput } from "@/components/ui/phone-input";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 const FormSchema = z.object({
   name: z.string().min(1, {
@@ -45,12 +47,34 @@ export default function Home() {
     },
   })
 
-  function onSubmit(data) {
-    // toast({
-    //   title: "¡Gracias por registrarte!",
-    //   description: "Recibirás un correo con el enlace para ver la clase.",
-    // })
-    console.log(data)
+  async function onSubmit(data) {
+    const formData = new FormData();
+    formData.append("EMAIL", data.email);
+    formData.append("NAME", data.name);
+    formData.append("JOB", data.phone); // Este es el campo de teléfono
+    formData.append("u", "36b822a64921a59ff44bdd210");
+    formData.append("id", "88b2fe7b65");
+    formData.append("f_id", "0016ece7f0");
+
+    try {
+      const response = await fetch(
+        "https://ilifestylei.us13.list-manage.com/subscribe/post?u=36b822a64921a59ff44bdd210&id=88b2fe7b65&f_id=0016ece7f0",
+        {
+          method: "POST",
+          mode: "no-cors", // Evita CORS pero no permite leer la respuesta
+          body: formData,
+        }
+      );
+
+      console.log(response)
+
+      // No se puede leer la respuesta con `no-cors`, así que asumimos éxito
+      toast.success("¡Gracias por registrarte! Revisa tu email.");
+      redirect("/clase-gratuita")
+    } catch (error) {
+      toast.error("Ocurrió un error al enviar el formulario.");
+      console.error("Error al enviar a Mailchimp:", error);
+    }
   }
 
   return (
