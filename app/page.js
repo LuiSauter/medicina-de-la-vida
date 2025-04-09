@@ -24,6 +24,7 @@ import Image from "next/image";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
+import MailchimpSubscribe from "react-mailchimp-subscribe";
 
 const FormSchema = z.object({
   name: z.string().min(1, {
@@ -35,15 +36,97 @@ const FormSchema = z.object({
   }),
 })
 
-export default function Home() {
-
+const CustomForm = ({ status, message, onValidated }) => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",
       email: "",
       phone: "",
-      // countryCode: "+54",
+    },
+  });
+
+  const submitForm = (data) => {
+    onValidated({
+      NAME: data.name,
+      EMAIL: data.email,
+      JOB: data.phone,
+    });
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(submitForm)} className="flex flex-col gap-4 p-4 shadow-md rounded-lg bg-white md:max-w-md">
+        <h2 className="text-primary font-semibold">Regístrate para ver la clase</h2>
+
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className='text-primary'>Nombre completo*</FormLabel>
+              <FormControl>
+                <Input placeholder="Tu nombre y apellido" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className='text-primary'>Email*</FormLabel>
+              <FormControl>
+                <Input placeholder="tucorreo@gmail.com" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className='text-primary'>Número de teléfono*</FormLabel>
+              <FormControl>
+                <PhoneInput
+                  className="rounded-lg"
+                  placeholder="Tu número de teléfono"
+                  onChange={(value) => field.onChange(value)}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {status === "sending" && <p className="text-blue-500 text-sm">Enviando...</p>}
+        {status === "error" && <p className="text-red-500 text-sm" dangerouslySetInnerHTML={{ __html: message }} />}
+        {status === "success" && <p className="text-green-600 text-sm" dangerouslySetInnerHTML={{ __html: message }} />}
+
+        <Button type="submit" className='rounded-lg py-5'>Ver la clase ahora</Button>
+
+        <FormDescription>
+          Al registrarte, aceptas recibir comunicaciones relacionadas con esta clase. Tus datos están seguros y protegidos.
+        </FormDescription>
+      </form>
+    </Form>
+  );
+};
+
+export default function Home() {
+  const url = "https://ilifestylei.us13.list-manage.com/subscribe/post?u=36b822a64921a59ff44bdd210&id=88b2fe7b65&f_id=0016ece7f0";
+  const form = useForm({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
     },
   })
 
@@ -57,19 +140,6 @@ export default function Home() {
     formData.append("f_id", "0016ece7f0");
 
     try {
-      const response = await fetch(
-        "https://ilifestylei.us13.list-manage.com/subscribe/post?u=36b822a64921a59ff44bdd210&id=88b2fe7b65&f_id=0016ece7f0",
-        {
-          method: "POST",
-          // mode: "no-cors", // Evita CORS pero no permite leer la respuesta
-          body: formData,
-        }
-      );
-
-      console.log(response)
-
-      // No se puede leer la respuesta con `no-cors`, así que asumimos éxito
-      toast.success("¡Gracias por registrarte! Revisa tu email.");
       redirect("/clase-gratuita")
     } catch (error) {
       toast.error("Ocurrió un error al enviar el formulario.");
@@ -100,7 +170,23 @@ export default function Home() {
         <div className="w-[100%] h-[50%] bg-[#02ACC4] absolute inset-0 mx-auto my-[10%] blur-3xl opacity-15 z-[-1] md:h-[70%]"></div>
 
         <div className="flex flex-col md:mr-auto">
-          <Form {...form}>
+          <MailchimpSubscribe
+            url={"https://ilifestylei.us13.list-manage.com/subscribe/post?u=36b822a64921a59ff44bdd210&id=88b2fe7b65&f_id=0016ece7f0"}
+            render={({ subscribe, status, message }) => {
+              if (status === "success") {
+                toast.success("¡Gracias por registrarte! Revisa tu email.");
+                redirect("/clase-gratuita")
+              }
+              return (
+                <CustomForm
+                  status={status}
+                  message={message}
+                  onValidated={(formData) => subscribe(formData)}
+                />
+              )
+            }}
+          />
+          {/* <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-4 shadow-md rounded-lg bg-white md:max-w-md">
               <h2 className="text-primary font-semibold">Regístrate para ver la clase</h2>
               <FormField
@@ -151,7 +237,7 @@ export default function Home() {
                 Al registrarte, aceptas recibir comunicaciones relacionadas con esta clase. Tus datos están seguros y protegidos.
               </FormDescription>
             </form>
-          </Form>
+          </Form> */}
         </div>
       </section>
       {/* ¿A QUIÉN ESTÁ DIRIGIDA ESTA CLASE? */}
