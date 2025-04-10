@@ -1,7 +1,5 @@
 "use client"
 import { IoIosPlay } from "react-icons/io";
-import countryCodes from '@/data/country-code.json'
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -150,7 +148,7 @@ export default function Home() {
   return (
     <>
       {/* hero */}
-      <section className="flex flex-col px-4 py-10 gap-8 relative md:flex-row md:px-16 md:py-16">
+      <section className="flex flex-col px-4 pb-10 pt-4 gap-8 relative md:flex-row md:px-16 md:py-16">
         <div className="flex flex-col gap-4 md:justify-center md:max-w-[45%] md:ml-auto">
           <div className='flex items-center gap-2 bg-primary/20 w-fit px-4 py-0.5 rounded-xl'>
             <IoIosPlay />
@@ -175,7 +173,7 @@ export default function Home() {
             render={({ subscribe, status, message }) => {
               if (status === "success") {
                 toast.success("¡Gracias por registrarte! Revisa tu email.");
-                redirect("/clase-gratuita")
+                redirect("/clase-gratuita.html")
               }
               return (
                 <CustomForm
@@ -315,7 +313,7 @@ export default function Home() {
       {/* ¿POR QUE EL MODELO ACTUAL YA NO ALCANZA? */}
       <section className="flex flex-col px-4 py-10 gap-4 bg-slate-50 relative md:px-15 md:py-16 md:gap-8 md:items-center">
         <h2 className="text-primary font-bold text-lg md:text-2xl text-center">
-          ¿POR QUE EL MODELO ACTUAL YA NO ALCANZA?
+          ¿POR QUE EL MODELO ACTUAL YA NO ES SUFICIENTE?
         </h2>
         <p className="text-base text-gray-600 text-center md:text-lg">
           La atención convencional ha salvado vidas, pero hoy no da respuestas completas frente a:
@@ -572,7 +570,7 @@ export default function Home() {
               Reconocimiento internacional
             </h3>
             <p className="text-base text-gray-600 md:text-lg">
-              También forma parte de la Australian Society of Lifestyle Medicine, una de las sociedades pioneras a nivel internacional en investigación y aplicación de este modelo.
+              También forma parte de la Australasian of Lifestyle Medicine, una de las sociedades pioneras a nivel internacional en investigación y aplicación de este modelo.
             </p>
           </div>
         </article>
