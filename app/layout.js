@@ -9,6 +9,7 @@ export const viewport = {
 import "./globals.css";
 import Image from "next/image";
 import { Toaster } from "sonner";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -127,26 +128,30 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <header className="flex items-center justify-start px-4 py-4">
-          <Image
-            src="/International-Lifestyle-Institute-logo.svg"
-            alt="International Lifestyle Institute"
-            width={95}
-            height={40}
-            priority
-            className=""
-          />
+          <Link href='/'>
+            <Image
+              src="/International-Lifestyle-Institute-logo.svg"
+              alt="International Lifestyle Institute"
+              width={95}
+              height={40}
+              priority
+              className=""
+            />
+          </Link>
         </header>
         <main>{children}</main>
         <Toaster />
         <footer className="flex flex-col px-4 py-8 gap-4 bg-primary">
-          <Image
-            src="/International-Lifestyle-Institute.svg"
-            alt="International Lifestyle Institute"
-            width={95}
-            height={40}
-            priority
-            className=""
-          />
+          <Link href='/'>
+            <Image
+              src="/International-Lifestyle-Institute.svg"
+              alt="International Lifestyle Institute"
+              width={95}
+              height={40}
+              priority
+              className=""
+            />
+          </Link>
           <h3 className="text-white ml-3">
             © {new Date().getFullYear()} Devhoo
           </h3>

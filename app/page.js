@@ -55,7 +55,7 @@ const CustomForm = ({ status, message, onValidated }) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(submitForm)} className="flex flex-col gap-4 p-4 shadow-md rounded-lg bg-white md:max-w-md">
-        <h2 className="text-primary font-semibold">Regístrate para ver la clase</h2>
+        <h2 className="text-primary font-semibold md:text-xl">Regístrate para ver la clase</h2>
 
         <FormField
           control={form.control}
@@ -148,14 +148,14 @@ export default function Home() {
   return (
     <>
       {/* hero */}
-      <section className="flex flex-col px-4 pb-10 pt-4 gap-8 relative md:flex-row md:px-16 md:py-16">
-        <div className="flex flex-col gap-4 md:justify-center md:max-w-[45%] md:ml-auto">
-          <div className='flex items-center gap-2 bg-primary/20 w-fit px-4 py-0.5 rounded-xl'>
+      <section className="flex flex-col px-4 pb-10 pt-4 gap-8 relative md:flex-row md:px-16 md:py-16 lg:py-32">
+        <div className="flex flex-col gap-4 md:justify-center md:max-w-[45%] md:ml-auto xl:gap-6">
+          <div className='flex items-center gap-2 bg-primary/15 w-fit px-4 py-0.5 rounded-xl border border-primary/50 text-primary'>
             <IoIosPlay />
-            <span className="text-sm">Clase gratuita de 10 minutos</span>
+            <span className="text-sm md:font-semibold">Clase gratuita de 10 minutos</span>
           </div>
           <div className="md:max-w-[90%]">
-            <h1 className="text-primary text-3xl font-bold leading-7 md:text-5xl md:leading-12">
+            <h1 className="text-primary text-3xl font-bold leading-7 md:text-5xl md:leading-14 2xl:text-6xl 2xl:leading-16 md:font-extrabold">
               Aplica un método que mejora la <span className="text-secondary">salud real</span> de tus pacientes
             </h1>
           </div>
@@ -164,8 +164,13 @@ export default function Home() {
               <span className="font-bold">Dra. Idoia Álvarez</span> | Fundadora del International Lifestyle Institute
             </h2>
           </div>
+          <div className="flex items-center gap-2 bg-secondary/25 border border-secondary w-fit px-4 py-2 rounded-xl">
+            <span className="text-black text-xs md:text-base">
+              🎁 Clase + reto de 7 días GRATIS con vídeos clínicos, herramientas y aplicación real.
+            </span>
+          </div>
         </div>
-        <div className="w-[100%] h-[50%] bg-[#02ACC4] absolute inset-0 mx-auto my-[10%] blur-3xl opacity-15 z-[-1] md:h-[70%]"></div>
+        <div className="w-[100%] h-[50%] bg-[#02ACC4] absolute inset-0 mx-auto my-[10%] blur-3xl opacity-15 z-[-1] md:h-[70%] lg:h-[90%] lg:my-[0%]"></div>
 
         <div className="flex flex-col md:mr-auto">
           <MailchimpSubscribe
@@ -239,7 +244,7 @@ export default function Home() {
         </div>
       </section>
       {/* ¿A QUIÉN ESTÁ DIRIGIDA ESTA CLASE? */}
-      <section className="flex flex-col px-4 py-10 gap-4 md:px-15 md:py-16 md:justify-center">
+      <section className="flex flex-col px-4 py-10 gap-4 md:px-15 md:py-16 lg:py-32 md:justify-center">
         <div className="flex flex-col gap-4 md:justify-center md:max-w-lg md:mx-auto md:text-center">
           <h2 className="text-primary font-bold text-lg md:text-2xl">¿A QUIÉN ESTÁ DIRIGIDA ESTA CLASE?</h2>
           <p className="text-base md:text-lg">
@@ -308,10 +313,12 @@ export default function Home() {
           </div>
         </Button>
         <p className="text-center text-gray-600 md:text-lg">10 minutos que transforman tu práctica profesional</p>
-        <div className="w-[100%] h-[50%] bg-[#02ACC4] absolute inset-0 mx-auto my-auto blur-3xl opacity-35 z-[-1]"></div>
+        <div className="w-[70%] h-[1%] bg-[#02ACC4] absolute inset-0 mx-auto blur-xl mb-auto z-[-1]"></div>
+        <div className="w-[70%] h-[1%] bg-[#02ACC4] absolute inset-0 mx-auto blur-xl mt-auto z-[-1]"></div>
+        <div className="w-[100%] h-[100%] bg-gradient-to-r from-white via-[#02ACC4] via-50% to-white absolute inset-0 mx-auto my-auto blur-none opacity-15 z-[-1]"></div>
       </section>
       {/* ¿POR QUE EL MODELO ACTUAL YA NO ALCANZA? */}
-      <section className="flex flex-col px-4 py-10 gap-4 bg-slate-50 relative md:px-15 md:py-16 md:gap-8 md:items-center">
+      <section className="flex flex-col px-4 py-10 gap-4 bg-slate-50 relative md:px-15 md:py-16 md:gap-8 md:items-center lg:py-32">
         <h2 className="text-primary font-bold text-lg md:text-2xl text-center">
           ¿POR QUE EL MODELO ACTUAL YA NO ES SUFICIENTE?
         </h2>
@@ -394,8 +401,8 @@ export default function Home() {
 
       </section>
       {/* LO QUE APRENDERÁS EN ESTA CLASE */}
-      <section className="flex flex-col px-4 py-10 gap-4 relative md:px-15 md:py-16 md:gap-8 md:items-center">
-        <div className="w-[100%] h-[90%] bg-[#02ACC4] absolute inset-0 mx-auto my-auto blur-3xl opacity-15 z-[-1]"></div>
+      <section className="flex flex-col px-4 py-10 gap-4 relative md:px-15 md:py-16 md:gap-8 md:items-center lg:py-32">
+        <div className="w-[70%] h-[90%] bg-[#02ACC4] absolute inset-0 mx-auto my-auto blur-3xl opacity-10 z-[-1]"></div>
         <h2 className="text-primary font-bold text-lg md:text-2xl text-center">
           LO QUE APRENDERÁS EN ESTA CLASE
         </h2>
@@ -461,7 +468,7 @@ export default function Home() {
         </div>
       </section>
       {/* sobre idoia */}
-      <section className="flex flex-col px-4 py-10 gap-4 md:px-15 md:py-16 md:gap-8 md:items-center">
+      <section className="flex flex-col px-4 py-10 gap-4 md:px-15 md:py-16 md:gap-8 md:items-center lg:py-32">
         <div className="flex flex-col gap-4 bg-slate-100 rounded-2xl px-5 py-6 md:max-w-5xl md:mx-auto md:px-16 md:py-28 md:flex-row md:gap-14">
           <figure className="flex items-center justify-center m-5 p-0 overflow-hidden md:m-0">
             <Image
@@ -501,7 +508,7 @@ export default function Home() {
         </div>
       </section>
       {/* trayectoria */}
-      <section className="flex flex-col px-4 py-10 gap-5 md:px-15 md:py-16 md:gap-8 md:items-center">
+      <section className="flex flex-col px-4 py-10 gap-5 md:px-15 md:py-16 md:gap-8 md:items-center lg:py-32">
         <h2 className="text-primary font-bold text-lg md:text-2xl text-center">
           TRAYECTORIA
         </h2>
@@ -576,7 +583,7 @@ export default function Home() {
         </article>
       </section>
       {/* respuestas a dudas comunes */}
-      <section className="flex flex-col px-4 py-10 gap-4 md:px-15 md:py-16 md:gap-8 md:items-center">
+      <section className="flex flex-col px-4 py-10 gap-4 md:px-15 md:py-16 md:gap-8 md:items-center lg:py-32 bg-gray-50">
         <h2 className="text-primary font-bold text-lg md:text-2xl text-center">
           RESPUESTAS A DUDAS COMUNES
         </h2>
@@ -628,7 +635,7 @@ export default function Home() {
           </AccordionItem>
         </Accordion>
       </section>
-      <section className="flex flex-col px-4 py-10 gap-4 relative md:px-15 md:py-16 md:gap-8 md:items-center">
+      <section className="flex flex-col px-4 py-10 gap-4 relative md:px-15 md:py-16 md:gap-8 md:items-center lg:py-32">
         <div className="bg-primary/10 rounded-full flex items-center justify-center w-14 h-14 shrink mx-auto">
           <Clock className="text-primary" />
         </div>
@@ -644,14 +651,15 @@ export default function Home() {
 
       </section>
       {/* CTA */}
-      <section className="flex flex-col px-4 py-14 gap-4 relative overflow-hidden md:px-15 md:py-16 md:gap-8 md:items-center">
-        <div className="w-[100%] h-[90%] bg-[#02ACC4] absolute -top-1/2 mx-auto my-0 blur-3xl opacity-20 z-[-1]"></div>
+      <section className="flex flex-col px-4 py-14 gap-4 relative overflow-hidden md:px-15 md:py-16 md:gap-8 md:items-center lg:py-32">
+        <div className="w-[70%] h-[1%] bg-[#02ACC4] absolute inset-0 mx-auto blur-2xl mb-auto z-[-1]"></div>
+        <div className="w-[100%] h-[90%] bg-[#02ACC4] absolute -top-1/2 mx-auto my-0 blur-3xl opacity-15 z-[-1] lg:-top-1/3"></div>
         <h2 className="font-extrabold text-4xl text-center leading-8 md:max-w-4xl md:mx-auto md:text-5xl md:leading-12">
           Si quieres ejercer con más propósito, evidencia y resultados…
         </h2>
         <h3 className="text-primary text-center text-base font-semibold md:text-xl">
           Esta clase es para ti</h3>
-        <div className="bg-white flex flex-col gap-4 mt-4 border rounded-lg shadow-lg p-5 md:max-w-5xl md:mx-auto md:p-8 md:gap-8 md:px-16">
+        <div className="bg-white flex flex-col gap-4 mt-4 border rounded-lg shadow-lg p-5 md:max-w-5xl md:mx-auto md:p-8 md:gap-6 md:px-16">
           <p className="text-base text-primary text-center md:text-xl">
             No te pedimos que cambies tu profesión.
           </p>
