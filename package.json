@@ -39,6 +39,7 @@
 		"sonner": "^2.0.3",
 		"tailwind-merge": "^3.1.0",
 		"tw-animate-css": "^1.2.5",
+		"video-react": "^0.16.0",
 		"video.js": "^8.22.0",
 		"zod": "^3.24.2"
 	},

@@ -179,9 +179,11 @@ export default function Home() {
 
         <div className="flex flex-col md:mr-auto">
           <MailchimpSubscribe
-            url={"https://ilifestylei.us13.list-manage.com/subscribe/post?u=36b822a64921a59ff44bdd210&id=88b2fe7b65&f_id=0016ece7f0"}
+          // https://ilifestylei.us13.list-manage.com/subscribe/post?u=36b822a64921a59ff44bdd210&amp;id=88b2fe7b65&amp;f_id=001dece7f0
+            url={"https://ilifestylei.us13.list-manage.com/subscribe/post?u=36b822a64921a59ff44bdd210&id=88b2fe7b65&amp;f_id=001dece7f0"}
             render={({ subscribe, status, message }) => {
               if (status === "success") {
+                // localStorage.setItem("sendForm", "true");
                 toast.success("¡Gracias por registrarte! Revisa tu email.");
                 redirect("/clase-gratuita.html")
               }
