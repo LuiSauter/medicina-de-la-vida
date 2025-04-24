@@ -107,7 +107,7 @@ const CustomForm = ({ status, message, onValidated }) => {
         {status === "error" && <p className="text-red-500 text-sm" dangerouslySetInnerHTML={{ __html: message }} />}
         {status === "success" && <p className="text-green-600 text-sm" dangerouslySetInnerHTML={{ __html: message }} />}
 
-        <Button type="submit" className='rounded-lg py-5'>Ver la clase ahora</Button>
+        <Button type="submit" className='rounded-lg py-5 cursor-pointer'>Ver la clase ahora</Button>
 
         <FormDescription>
           Al registrarte, aceptas recibir comunicaciones relacionadas con esta clase. Tus datos están seguros y protegidos.
@@ -145,6 +145,11 @@ export default function Home() {
     }
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    form.setFocus("name");
+  }
+
   return (
     <>
       {/* hero */}
@@ -164,8 +169,8 @@ export default function Home() {
               <span className="font-bold">Dra. Idoia Álvarez</span> | Fundadora del International Lifestyle Institute
             </h2>
           </div>
-          <div className="flex items-center gap-2 bg-secondary/25 border border-secondary w-fit px-4 py-2 rounded-xl">
-            <span className="text-black text-xs md:text-base">
+          <div className="flex items-center gap-2 bg-secondary/25 border border-secondary w-fit px-4 py-2 rounded-xl animate-pulse">
+            <span className="text-yellow-700 text-xs md:text-base">
               🎁 Clase + reto de 7 días GRATIS con vídeos clínicos, herramientas y aplicación real.
             </span>
           </div>
@@ -189,58 +194,6 @@ export default function Home() {
               )
             }}
           />
-          {/* <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 p-4 shadow-md rounded-lg bg-white md:max-w-md">
-              <h2 className="text-primary font-semibold">Regístrate para ver la clase</h2>
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className='text-primary'>Nombre completo*</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Tu nombre y apellido" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className='text-primary'>Email*</FormLabel>
-                    <FormControl>
-                      <Input placeholder="tucorreo@gmail.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className='text-primary'>Número de teléfono*</FormLabel>
-                    <FormControl>
-                      <PhoneInput
-                        className="rounded-lg"
-                        placeholder="Tu número de teléfono"
-                        onChange={(value) => field.onChange(value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className='rounded-lg py-5'>Ver la clase ahora</Button>
-              <FormDescription>
-                Al registrarte, aceptas recibir comunicaciones relacionadas con esta clase. Tus datos están seguros y protegidos.
-              </FormDescription>
-            </form>
-          </Form> */}
         </div>
       </section>
       {/* ¿A QUIÉN ESTÁ DIRIGIDA ESTA CLASE? */}
@@ -306,7 +259,9 @@ export default function Home() {
       </section>
       {/*   Ver la clase gratuita ahora */}
       <section className="flex flex-col px-4 py-10 gap-4 relative overflow-hidden md:px-15 md:py-16">
-        <Button className='flex items-center gap-2 bg-primary text-white rounded-xl py-6 md:text-lg md:max-w-fit md:mx-auto'>
+        <Button
+          onClick={scrollToTop}
+          className='flex items-center gap-2 bg-primary text-white rounded-xl py-6 md:text-lg md:max-w-fit md:mx-auto cursor-pointer'>
           <div className="md:px-8 flex items-center gap-2">
             <IoIosPlay />
             Ver la clase gratuita ahora
@@ -393,7 +348,7 @@ export default function Home() {
           <p className="text-base text-primary font-semibold md:text-center md:text-lg">
             Y tú, como profesional, mereces herramientas para ir más allá de este modelo limitado.
           </p>
-          <Button className='w-full flex items-center gap-2 bg-primary text-white rounded-xl py-6 md:gap-4 md:text-lg'>
+          <Button onClick={scrollToTop} className='w-full flex items-center gap-2 bg-primary text-white rounded-xl py-6 md:gap-4 md:text-lg cursor-pointer'>
             Ver la clase ahora
             <ArrowRight />
           </Button>
@@ -457,7 +412,7 @@ export default function Home() {
               <p className="text-base text-white md:text-lg">
                 Por qué integrar hábitos y estilo de vida no es alternativo, sino esencial para la medicina del futuro. Descubre cómo este enfoque está transformando la práctica clínica a nivel mundial.
               </p>
-              <Button className='flex items-center gap-2 bg-white/20 text-white rounded-lg py-6 justify-center md:gap-4 md:text-lg md:max-w-fit'>
+              <Button onClick={scrollToTop} className='flex items-center gap-2 bg-white/20 text-white rounded-lg py-6 justify-center md:gap-4 md:text-lg md:max-w-fit cursor-pointer hover:border hover:border-white/20 border border-transparent'>
                 <div className="flex items-center gap-2 md:px-4">
                   <IoIosPlay className="text-primary scale-150" />
                   Incluido en la clase gratuita
@@ -645,7 +600,7 @@ export default function Home() {
         <p className="text-base md:text-lg text-gray-600 text-center md:max-w-2xl">
           La clase gratuita de 10 minutos te dará las claves para comenzar a transformar tu práctica profesional.
         </p>
-        <Button className='w-full py-6 md:w-fit md:px-10 rounded-xl' variant='outline'>
+        <Button onClick={scrollToTop} className='w-full py-6 md:w-fit md:px-10 rounded-xl cursor-pointer' variant='outline'>
           ACCEDER AHORA
         </Button>
 
@@ -664,7 +619,7 @@ export default function Home() {
             No te pedimos que cambies tu profesión.
           </p>
           <p className="text-center font-bold text-base md:text-2xl">Solo que la lleves al siguiente nivel.</p>
-          <Button className='w-full flex items-center gap-2 bg-primary text-white rounded-xl py-6 md:text-lg md:w-fit md:mx-auto'>
+          <Button onClick={scrollToTop} className='w-full flex items-center gap-2 bg-primary text-white rounded-xl py-6 md:text-lg md:w-fit md:mx-auto cursor-pointer'>
             <div className="flex items-center gap-2 md:px-4">
               Ver la clase ahora
               <ArrowRight />
