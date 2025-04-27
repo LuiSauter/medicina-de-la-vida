@@ -10,6 +10,7 @@ import "./globals.css";
 import Image from "next/image";
 import { Toaster } from "sonner";
 import Link from "next/link";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,7 +22,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN || "https://tudominio.com";
+const domain = "https://ilifestylei.com";
 
 export const metadata = {
   metadataBase: new URL(domain),
@@ -58,11 +59,10 @@ export const metadata = {
       "Descubre un método basado en evidencia que mejora la salud real de tus pacientes. Clase gratuita de 10 minutos con la Dra. Idoia Álvarez.",
     images: [
       {
-        url: `${domain}/images/preview.jpg`,
+        url: `${domain}/ilifestylei.jpg`,
         width: 1200,
         height: 630,
         alt: "Clase Gratuita Medicina de la Vida - Dra. Idoia Álvarez",
-        type: "image/jpeg"
       }
     ]
   },
@@ -75,7 +75,7 @@ export const metadata = {
     site: "@idoiaalvarez",
     images: [
       {
-        url: `${domain}/images/preview.jpg`,
+        url: `${domain}/dra-idoia-alvarez.svg`,
         width: 1200,
         height: 630,
         alt: "Clase Gratuita Medicina de la Vida - Dra. Idoia Álvarez"
@@ -102,18 +102,18 @@ export const metadata = {
   icons: {
     icon: [
       {
-        url: "/favicon.ico",
+        url: "/favicon-image.ico",
         type: "image/x-icon"
       },
       {
-        url: "/favicon-32x32.png",
+        url: "/favicon.png",
         sizes: "32x32",
         type: "image/png"
       }
     ],
     apple: [
       {
-        url: "/apple-icon-180x180.png",
+        url: "/favicon.png",
         sizes: "180x180",
         type: "image/png"
       }
@@ -124,6 +124,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          id="clarity-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+            (function(c,l,a,r,i,t,y){
+              c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "r9sgsz8s22");
+          `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

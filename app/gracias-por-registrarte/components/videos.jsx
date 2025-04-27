@@ -9,7 +9,7 @@ export const VideoJS = (props) => {
   const { options, onReady } = props;
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [isFullscreen, setIsFullscreen] = React.useState(false);
-  const [shouldShowControls, setShouldShowControls] = React.useState(false);
+  const [shouldShowControls, setShouldShowControls] = React.useState(true);
 
   React.useEffect(() => {
     if (!playerRef.current) {
@@ -60,6 +60,13 @@ export const VideoJS = (props) => {
     if (player) {
       const currentTime = player.currentTime();
       player.requestFullscreen();
+      // show controls
+      setShouldShowControls(true);
+      player.controls(true);
+      // no se debe poder adelantar el video o retroceder
+      // player.on('seeked', () => {
+      //   player.currentTime(currentTime);
+      // });
       setTimeout(() => {
         player.currentTime(currentTime);
       }, 50);
@@ -68,14 +75,22 @@ export const VideoJS = (props) => {
 
   return (
     <div data-vjs-player
-      className='relative w-full h-full aspect-video bg-primary/25 rounded-lg max-w-5xl mx-auto 2xl:max-w-6xl'
-      onMouseEnter={() => setShouldShowControls(true)}
-      onMouseLeave={() => setShouldShowControls(false)}
+      className='relative w-full h-full aspect-video bg-primary/20 rounded-lg max-w-3xl mx-auto shrink-0'
+      onMouseEnter={() => {
+        if (isPlaying) {
+          setShouldShowControls(true);
+        }
+      }}
+      onMouseLeave={() => {
+        if (isPlaying) {
+          setShouldShowControls(false);
+        }
+      }}
     >
-      <div ref={videoRef} className='rounded-lg overflow-hidden' />
+      <div className="w-[100%] h-[100%] bg-[#02ACC4] absolute inset-0 mx-auto z-[-1] blur-3xl opacity-25"></div>
+      <div ref={videoRef} className='rounded-lg aspect-video w-fit h-full overflow-hidden' />
       <div
-        className={`absolute inset-0 flex my-auto items-center justify-center transition-opacity duration-300 ${shouldShowControls ? "opacity-100" : "opacity-0"
-          }`}
+        className={`absolute inset-0 flex my-auto items-center justify-center transition-opacity duration-300 ${shouldShowControls ? "opacity-100" : "opacity-0"}`}
       >
         <button
           onClick={togglePlayPause}
