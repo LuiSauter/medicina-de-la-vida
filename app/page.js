@@ -8,7 +8,8 @@ export default function Home() {
 
   useEffect(() => {
     setTimeout(() => {
-      redirect('/clase-gratuita-mev.html')
+      redirect('/clase-gratuita-mev')
+      // redirect('/clase-gratuita-mev.html')
     }, 5)
   }, [])
 

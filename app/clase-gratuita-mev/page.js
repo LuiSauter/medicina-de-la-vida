@@ -21,8 +21,9 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
+import { useEffect, useState } from "react";
 
 const FormSchema = z.object({
   name: z.string().min(1, {
@@ -33,8 +34,24 @@ const FormSchema = z.object({
     message: "Este campo es obligatorio",
   }),
 })
-
+export async function getClientIP() {
+  try {
+    const res = await fetch('https://api64.ipify.org?format=json');
+    const data = await res.json();
+    return data.ip;
+  } catch (err) {
+    return '';
+  }
+}
 const CustomForm = ({ status, message, onValidated }) => {
+  const [utmParams, setUtmParams] = useState({});
+  const [ip, setIp] = useState("");
+  const searchParams = useSearchParams(); // Next 13+
+
+  useEffect(() => {
+    getClientIP().then(setIp);
+  }, []);
+  const getUTM = (key) => searchParams.get(key) || '';
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -44,12 +61,41 @@ const CustomForm = ({ status, message, onValidated }) => {
     },
   });
 
+  useEffect(() => {
+    const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id'];
+    const utms = {};
+    keys.forEach((key) => {
+      const val = searchParams.get(key);
+      if (val) utms[key.toUpperCase()] = val; // convertir a MAY para coincidir con merge fields
+    });
+    setUtmParams(utms);
+  }, [searchParams]);
+
   const submitForm = (data) => {
-    onValidated({
+    console.log({
       NAME: data.name,
       EMAIL: data.email,
-      JOB: data.phone,
-    });
+      PHONE: data.phone,
+      IP: ip,
+      UTM_SOURCE: utmParams.UTM_SOURCE,
+      UTM_MEDIUM: utmParams.UTM_MEDIUM,
+      UTM_TERM: utmParams.UTM_TERM,
+      UTM_ID: utmParams.UTM_ID,
+      CAMPAIGN: utmParams.UTM_CAMPAIGN,
+      CONTENT: utmParams.UTM_CONTENT
+    })
+    // onValidated({
+    //   NAME: data.name,
+    //   EMAIL: data.email,
+    //   PHONE: data.phone,
+    //   IP: ip,
+    //   UTM_SOURCE: utmParams.UTM_SOURCE,
+    //   UTM_MEDIUM: utmParams.UTM_MEDIUM,
+    //   UTM_TERM: utmParams.UTM_TERM,
+    //   UTM_ID: utmParams.UTM_ID,
+    //   CAMPAIGN: utmParams.UTM_CAMPAIGN,
+    //   CONTENT: utmParams.UTM_CONTENT
+    // });
   };
 
   return (
@@ -154,10 +200,13 @@ export default function ClaseGratuita() {
           <MailchimpSubscribe
             url={"https://ilifestylei.us13.list-manage.com/subscribe/post?u=36b822a64921a59ff44bdd210&id=88b2fe7b65&amp;f_id=001dece7f0"}
             render={({ subscribe, status, message }) => {
-              if (status === "success") {
-                toast.success("¡Gracias por registrarte!, disfruta de la clase gratuita.");
-                redirect("/gracias-por-registrarte.html")
-              }
+              console.log({
+                status, message
+              })
+              // if (status === "success") {
+              //   toast.success("¡Gracias por registrarte!, disfruta de la clase gratuita.");
+              //   redirect("/gracias-por-registrarte.html")
+              // }
               return (
                 <CustomForm
                   status={status}
